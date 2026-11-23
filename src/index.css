@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{--pu:#6b3fa0;--dp:#3b1f63;--lv:#e9ddf7;--iv:#faf7ff;--gd:#c9a96a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(120% 60% at 50% 0,#efe5fb,#fff 55%),#fff;color:var(--dp);font-family:Montserrat,system-ui,sans-serif;text-align:center;overflow-x:hidden}
+body.lock{overflow:hidden;height:100%}
+main{max-width:460px;margin:0 auto;padding:0 22px 60px}
+section{padding:54px 0 18px}
+h2{font:600 13px/1.4 Montserrat,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--pu);margin:0 0 6px}
+.sub{font:italic 500 18px/1.5 "Cormorant Garamond",serif;margin:0 0 22px;color:#5b4a78}
+.orn{color:var(--gd);letter-spacing:.6em;font-size:12px;margin:14px 0}
+#petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+#petals i{position:absolute;top:-20px;width:10px;height:14px;background:var(--lv);border-radius:80% 0 80% 0;opacity:.8;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(40px,110vh) rotate(360deg)}}
+/* intro */
+#intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:radial-gradient(90% 60% at 50% 40%,#f3eafc,#fff);transition:opacity 1.1s,visibility 1.1s}
+#intro.gone{opacity:0;visibility:hidden}
+.kick{font:600 12px Montserrat;letter-spacing:.4em;color:var(--pu);text-transform:uppercase}
+.env{position:relative;width:min(82vw,340px);aspect-ratio:3/2;perspective:1000px;cursor:pointer;filter:drop-shadow(0 22px 28px rgba(59,31,99,.22))}
+.env>*{position:absolute;inset:0}
+.back{background:#d9c6f0;border-radius:8px}
+.card{left:7%;right:7%;top:7%;bottom:7%;background:#fff;border-radius:4px;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 1.1s .55s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 0 1px var(--lv) inset}
+.card b{font:400 34px "Great Vibes",cursive;color:var(--pu)}.card span{font:600 9px Montserrat;letter-spacing:.3em;color:#8a76a8}
+.pocket{background:linear-gradient(160deg,#efe4fb,#cdb6e9);clip-path:polygon(0 100%,0 38%,50% 64%,100% 38%,100% 100%);z-index:3;border-radius:8px}
+.flap{background:linear-gradient(180deg,#e2d0f5,#c9b0e8);clip-path:polygon(0 0,100% 0,50% 64%);transform-origin:50% 0;z-index:4;transition:transform .9s .1s,z-index 0s .5s;border-radius:8px 8px 0 0}
+.seal{inset:auto;left:50%;top:64%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;z-index:5;background:radial-gradient(circle at 35% 30%,#a97be0,#5a2d8f 70%);display:grid;place-items:center;color:#f3e6ff;font:400 22px "Great Vibes",cursive;box-shadow:0 4px 10px rgba(59,31,99,.45),inset 0 0 0 3px rgba(255,255,255,.18);animation:pulse 1.8s infinite;transition:opacity .4s,transform .4s}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.env.open .seal{opacity:0;transform:scale(1.6);animation:none}
+.env.open .flap{transform:rotateX(180deg);z-index:1}
+.env.open .card{transform:translateY(-62%) scale(1.04)}
+.hint{font:italic 500 17px "Cormorant Garamond",serif;color:#6b5a88;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+/* puzzle */
+.board{position:relative;width:min(84vw,330px);aspect-ratio:1;margin:0 auto;display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);gap:4px;padding:8px;background:#fff;border-radius:22px;box-shadow:0 18px 40px rgba(107,63,160,.22),0 0 0 1px var(--lv);transition:.9s}
+.t{border:0;padding:0;border-radius:10px;background-image:var(--photo);background-size:300% 300%;cursor:pointer;transition:transform .2s,filter .2s;filter:saturate(.9)}
+.t:active{transform:scale(.96)}
+.t.e{background:var(--iv);box-shadow:inset 0 0 0 1px var(--lv);cursor:default}
+.board.done{gap:0;padding:6px;border-radius:160px 160px 22px 22px;overflow:hidden}
+.board.done .t{border-radius:0;filter:none}
+.btn{display:inline-block;font:600 12px Montserrat;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#fff;background:linear-gradient(135deg,#8a5cc4,#5a2d8f);padding:14px 26px;border-radius:40px;border:0;box-shadow:0 8px 18px rgba(107,63,160,.35);cursor:pointer}
+.btn.o{background:#fff;color:var(--pu);box-shadow:0 0 0 1.5px var(--pu) inset}
+.skip{background:none;border:0;color:#8a76a8;font:500 12px Montserrat;text-decoration:underline;margin-top:16px;cursor:pointer}
+.moves{font:500 12px Montserrat;color:#8a76a8;margin-top:14px;letter-spacing:.1em}
+/* reveal */
+.hid{display:none}
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s,transform 1s}.rv.in{opacity:1;transform:none}
+.to{font:italic 500 19px "Cormorant Garamond",serif;color:#6b5a88}
+.nm{font:400 clamp(54px,17vw,76px)/1 "Great Vibes",cursive;color:var(--pu);margin:6px 0}
+.full{font:600 11px Montserrat;letter-spacing:.25em;text-transform:uppercase;color:#8a76a8}
+.amp{font:italic 500 26px "Cormorant Garamond",serif;color:var(--gd);margin:6px 0}
+.par{font:500 19px/1.5 "Cormorant Garamond",serif;margin:18px 0 0}
+.par small{display:block;font:italic 500 16px "Cormorant Garamond",serif;color:#8a76a8}
+/* scratch */
+.scr{position:relative;width:240px;height:120px;margin:0 auto 20px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 12px 26px rgba(107,63,160,.25),0 0 0 1.5px var(--lv)}
+.scr .d{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.scr .d b{font:600 30px "Cormorant Garamond",serif;color:var(--pu);line-height:1}.scr .d span{font:600 10px Montserrat;letter-spacing:.2em;color:var(--dp)}
+.scr canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .8s}
+.cd{display:flex;justify-content:center;gap:10px;margin:22px 0}
+.cd div{width:70px;padding:12px 0 9px;background:#fff;border-radius:14px;box-shadow:0 6px 16px rgba(107,63,160,.14),0 0 0 1px var(--lv)}
+.cd b{display:block;font:600 26px "Cormorant Garamond",serif;color:var(--pu)}.cd small{font:500 9px Montserrat;letter-spacing:.2em;text-transform:uppercase;color:#8a76a8}
+/* location */
+.loc{margin-top:8px;padding:30px 22px;background:#fff;border-radius:26px;box-shadow:0 14px 34px rgba(107,63,160,.16),0 0 0 1px var(--lv)}
+.loc h3{font:600 27px "Cormorant Garamond",serif;margin:8px 0}
+.loc p{font:500 15px/1.7 Montserrat;color:#4d3d6b;margin:0 0 22px}
+.foot{margin-top:40px;font:italic 500 18px/1.6 "Cormorant Garamond",serif;color:#6b5a88}
+.foot b{display:block;font:400 34px "Great Vibes",cursive;color:var(--pu);margin-top:6px}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:40}
+:root{--ga:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560'%3E%3Cdefs%3E%3Cg id='f'%3E%3Cellipse rx='9' ry='22' cy='-18' transform='rotate(0)'/%3E%3Cellipse rx='9' ry='22' cy='-18' transform='rotate(72)'/%3E%3Cellipse rx='9' ry='22' cy='-18' transform='rotate(144)'/%3E%3Cellipse rx='9' ry='22' cy='-18' transform='rotate(216)'/%3E%3Cellipse rx='9' ry='22' cy='-18' transform='rotate(288)'/%3E%3Ccircle r='6' fill='%23c9a96a'/%3E%3C/g%3E%3C/defs%3E%3Cg fill='%23cbb0ea' fill-opacity='.6'%3E%3Cuse href='%23f' transform='translate(14 70) scale(1.8)'/%3E%3Cuse href='%23f' transform='translate(394 290) scale(2.1)'/%3E%3Cuse href='%23f' transform='translate(26 440) scale(1.3)'/%3E%3Cuse href='%23f' transform='translate(380 520) scale(1)'/%3E%3C/g%3E%3Cg fill='%23ddcff0'%3E%3Cellipse cx='70' cy='130' rx='8' ry='24' transform='rotate(-40 70 130)'/%3E%3Cellipse cx='52' cy='22' rx='8' ry='24' transform='rotate(30 52 22)'/%3E%3Cellipse cx='338' cy='250' rx='8' ry='24' transform='rotate(40 338 250)'/%3E%3Cellipse cx='350' cy='345' rx='8' ry='24' transform='rotate(-30 350 345)'/%3E%3Cellipse cx='76' cy='480' rx='8' ry='24' transform='rotate(-45 76 480)'/%3E%3Cellipse cx='338' cy='470' rx='8' ry='24' transform='rotate(35 338 470)'/%3E%3C/g%3E%3C/svg%3E");--gb:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560'%3E%3Cdefs%3E%3Cpath id='s' d='M0-10L2-2 10 0 2 2 0 10-2 2-10 0-2-2z'/%3E%3C/defs%3E%3Cg fill='none' stroke-width='3'%3E%3Ccircle cx='318' cy='90' r='34' stroke='%23c9a96a' stroke-opacity='.6'/%3E%3Ccircle cx='348' cy='90' r='34' stroke='%23a97be0' stroke-opacity='.5'/%3E%3Ccircle cx='60' cy='470' r='28' stroke='%23a97be0' stroke-opacity='.4'/%3E%3Ccircle cx='84' cy='470' r='28' stroke='%23c9a96a' stroke-opacity='.5'/%3E%3C/g%3E%3Cg fill='%23c9a96a' fill-opacity='.7'%3E%3Cuse href='%23s' transform='translate(60 120) scale(.8)'/%3E%3Cuse href='%23s' transform='translate(350 220) scale(.6)'/%3E%3Cuse href='%23s' transform='translate(330 420) scale(1)'/%3E%3Cuse href='%23s' transform='translate(120 330) scale(.5)'/%3E%3C/g%3E%3C/svg%3E");--gc:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 560'%3E%3Cdefs%3E%3Cpath id='s' d='M0-10L2-2 10 0 2 2 0 10-2 2-10 0-2-2z'/%3E%3C/defs%3E%3Cg fill='%23cbb0ea' fill-opacity='.7'%3E%3Cuse href='%23s' transform='translate(50 60) scale(1)'/%3E%3Cuse href='%23s' transform='translate(340 110) scale(1.4)'/%3E%3Cuse href='%23s' transform='translate(120 230) scale(.6)'/%3E%3Cuse href='%23s' transform='translate(360 330) scale(.8)'/%3E%3Cuse href='%23s' transform='translate(40 400) scale(1.3)'/%3E%3Cuse href='%23s' transform='translate(250 500) scale(.7)'/%3E%3C/g%3E%3C/svg%3E");--gd:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180'%3E%3Ccircle cx='320' cy='50' r='24' fill='%23f1e2c6' fill-opacity='.8'/%3E%3Cpath d='M0 110Q50 60 100 95T200 80T300 90T400 70V180H0Z' fill='%23e6daf6'/%3E%3Cpath d='M0 130Q70 85 140 120T280 110T400 100V180H0Z' fill='%23d5c1ee'/%3E%3Cpath d='M0 155Q90 120 180 148T400 135V180H0Z' fill='%23bda0e3'/%3E%3C/svg%3E")}
+main{padding:0;box-shadow:0 0 70px rgba(107,63,160,.09)}
+section{padding:56px 24px 40px}
+.s1{background:var(--ga) repeat-y center top/100% auto}
+.s2{background:var(--gb) no-repeat center top/100% auto,linear-gradient(#fff,#f5eefc 45%,#fff)}
+.s3{background:var(--gc) repeat-y center top/100% auto,#fff}
+.s4{padding-bottom:215px;background:var(--gd) no-repeat center bottom/100% auto,linear-gradient(#fff,#f3eafc)}
+.meet{display:none;margin-top:20px}.meet.in{display:block;animation:up .9s}@keyframes up{from{opacity:0;transform:translateY(16px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+
+/* Container settings */
+#intro {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 1. Floral Frame (Fixed in the background) */
+.intro-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Stretches/crops proportionally to fill background */
+  pointer-events: none; /* Allows clicks to pass through to envelope */
+  z-index: 1;
+  mix-blend-mode: multiply; /* Removes white background if image is JPG/AVIF */
+}
+
+/* 2. Envelope Container (Floats directly in front of the frame) */
+.intro-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
